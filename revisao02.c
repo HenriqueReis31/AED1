@@ -7,8 +7,6 @@ int main() {
     int dia, mes, ano;
     int resultado;
     
-    printf("=== SISTEMA DE VALIDACAO E EXIBICAO DE DATAS ===\n");
-    
     resultado = validarData(&dia, &mes, &ano);
     
     if (resultado == 1) {
