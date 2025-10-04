@@ -87,7 +87,7 @@ int validarData(int *dia, int *mes, int *ano) {
 
 void exibirDataPorExtenso(int *dia, int *mes, int *ano) {
     const char *meses[] = {
-        "janeiro", "fevereiro", "março", "abril", "maio", "junho",
+        "janeiro", "fevereiro", "marco", "abril", "maio", "junho",
         "julho", "agosto", "setembro", "outubro", "novembro", "dezembro"
  };
     
