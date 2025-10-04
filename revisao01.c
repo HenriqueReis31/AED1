@@ -5,7 +5,7 @@ int Calculo ( int numero );
 int main (){
     int var;
      var =  Num (  );
-     int Calculo ( var );
+     Calculo ( var );
     int dobro = Calculo( var );
     printf("o numero eh %d ", var);
     printf ("o dobro de %d eh: %d", var, dobro);
