@@ -22,7 +22,8 @@ void AlocarDinamicamente(){
     if (Sstring == NULL) {
         printf("Erro na alocação de memoria!\n");
         return;
-    } printf("Digite o conteudo da string: ");
+    } 
+    printf("Digite o conteudo da string: ");
     
     
     fgets(Sstring, Tamanhostring, stdin);
