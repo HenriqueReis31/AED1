@@ -1,96 +1,138 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
+#include <string.h>
 
-typedef struct{
-    int dia, mes, ano;
-}Data;
-typedef struct{
-    char nome[50];
-    Data data;
-}Pessoa;
-typedef struct no{
-    Pessoa p;
-    struct no *proximo;
-}No;
-typedef struct{
-    No *topo;
-    int tam;
-}Pilha;
+// ---------- ESTRUTURAS ----------
+typedef struct {
+    char nome[30];
+    int idade;
+} Pessoa;
 
-Pessoa ler_pessoa(){
-    Pessoa p;
-    printf("\nDigite nome e data de nascimento dd mm aaaa:\n");
-    scanf("%49[^\n]%d%d%d", p.nome, &p.data.dia, &p.data.mes, &p.data.ano);
-    return p;
+typedef struct {
+    Pessoa *dados;  // vetor dinâmico
+    int topo;       // quantidade de elementos
+} Pilha;
+
+// ---------- FUNÇÕES DO TAD ----------
+
+// Inicializa a pilha
+void RESET(Pilha *p) {
+    p->dados = NULL;
+    p->topo = 0;
 }
-void imprimir_pessoa(Pessoa p){
-    printf("\nNome: %s\nData: %2d/%2d/%4d\n", p.nome, p.data.dia, p.data.mes, p.data.ano);
+
+// Verifica se está vazia
+bool EMPTY(Pilha *p) {
+    return p->topo == 0;
 }
-void criar_pilha(Pilha *p){
-    p->topo = NULL;
-    p->tam = 0;
-}
-void empilhar(Pilha *p){
-    No *novo = malloc(sizeof(No));
-    if(novo){
-        novo->p = ler_pessoa();
-        novo->proximo = p->topo;
-        p->topo = novo;
-        p->tam++;
+
+// Insere nova pessoa no topo
+bool PUSH(Pilha *p, Pessoa nova) {
+    Pessoa *temp = realloc(p->dados, (p->topo + 1) * sizeof(Pessoa));
+    if (temp == NULL) {
+        printf("Erro ao alocar memória!\n");
+        return false;
     }
-    else
-        printf("\nErro ao alocar memoria...\n");
+    p->dados = temp;
+    p->dados[p->topo] = nova;
+    p->topo++;
+    return true;
 }
-No* desempilhar(Pilha *p){
-    if(p->topo){
-        No *remover = p->topo;
-        p->topo = remover->proximo;
-        p->tam--;
-        return remover;
+
+// Remove pessoa do topo
+bool POP(Pilha *p, Pessoa *removida) {
+    if (EMPTY(p)) {
+        printf("Pilha vazia!\n");
+        return false;
     }
-    else
-        printf("\nPilha vazia!\n");
-    return NULL;
-}
-void imprimir_pilha(Pilha *p){
-    No *aux = p->topo;
-    printf("\n----------- PILHA Tam: %d --------------\n", p->tam);
-    while(aux){
-        imprimir_pessoa(aux->p);
-        aux = aux->proximo;
+
+    *removida = p->dados[p->topo - 1];
+    p->topo--;
+
+    if (p->topo == 0) {
+        free(p->dados);
+        p->dados = NULL;
+    } else {
+        Pessoa *temp = realloc(p->dados, p->topo * sizeof(Pessoa));
+        if (temp)
+            p->dados = temp;
     }
-    printf("\n--------- FIM PILHA ------------\n");
+    return true;
 }
-int main(){
-    No *remover;
-    Pilha p;
-    int opcao;
-    criar_pilha(&p);
-    do{
-        printf("\n0 - Sair\n1 - Empilhar\n2 - Desempilhar\n3 - Imprimir\n");
-        scanf("%d", &opcao);
-        getchar();
-        switch(opcao){
-        case 1:
-            empilhar(&p);
-            break;
-        case 2:
-            remover = desempilhar(&p);
-            if(remover){
-                printf("\nElemento removido com sucesso!\n");
-                imprimir_pessoa(remover->p);
-                free(remover);
-            }
-            else
-                printf("\nSem no a remover.\n");
-            break;
-        case 3:
-            imprimir_pilha(&p);
-            break;
-        default:
-            if(opcao != 0)
-                printf("\nOpcao invalida!!!\n");
+
+// Limpa completamente a pilha
+void CLEAR(Pilha *p) {
+    free(p->dados);
+    p->dados = NULL;
+    p->topo = 0;
+}
+
+// ---------- FUNÇÃO EXTRA: LISTAR ----------
+void LISTAR(Pilha *p) {
+    printf("\n--- PILHA DE PESSOAS ---\n");
+    if (EMPTY(p)) {
+        printf("(vazia)\n");
+    } else {
+        for (int i = p->topo - 1; i >= 0; i--) {
+            printf("%d - %s (%d anos)\n", i + 1, p->dados[i].nome, p->dados[i].idade);
         }
-    }while(opcao != 0);
+    }
+    printf("------------------------\n");
+}
+
+// ---------- PROGRAMA PRINCIPAL ----------
+int main() {
+    Pilha pilha;
+    Pessoa pessoa, removida;
+    int opcao;
+    RESET(&pilha);
+
+    do {
+        printf("\n===== MENU =====\n");
+        printf("0 - Sair\n");
+        printf("1 - Inserir pessoa\n");
+        printf("2 - Remover pessoa do topo\n");
+        printf("3 - Limpar pilha\n");
+        printf("4 - Listar pilha\n");
+        printf("Escolha: ");
+        scanf("%d", &opcao);
+        getchar(); // limpar o '\n' do buffer
+
+        switch (opcao) {
+        case 1:
+            printf("Nome: ");
+            fgets(pessoa.nome, sizeof(pessoa.nome), stdin);
+            pessoa.nome[strcspn(pessoa.nome, "\n")] = '\0'; // remove \n
+            printf("Idade: ");
+            scanf("%d", &pessoa.idade);
+            getchar();
+            PUSH(&pilha, pessoa);
+            break;
+
+        case 2:
+            if (POP(&pilha, &removida))
+                printf("Removido: %s (%d anos)\n", removida.nome, removida.idade);
+            break;
+
+        case 3:
+            CLEAR(&pilha);
+            printf("Pilha limpa!\n");
+            break;
+
+        case 4:
+            LISTAR(&pilha);
+            break;
+
+        case 0:
+            CLEAR(&pilha);
+            printf("Encerrando...\n");
+            break;
+
+        default:
+            printf("Opção inválida!\n");
+        }
+    } while (opcao != 0);
+
     return 0;
 }
