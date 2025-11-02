@@ -10,6 +10,11 @@ CanPlaceFlowers
 
   Só posso plantar se a posição atual está vazia (0), e
   os dois vizinhos (esquerda e direita) também estão vazios
+
+  Example 1:
+
+  Input: flowerbed = [1,0,0,0,1], n = 1
+  Output: true
 ====================
 */
 bool CanPlaceFlowers( int *flowerbed, int flowerbedSize, int n ) {
