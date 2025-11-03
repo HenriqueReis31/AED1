@@ -18,6 +18,7 @@ CanPlaceFlowers
 ====================
 */
 bool CanPlaceFlowers( int *flowerbed, int flowerbedSize, int n ) {
+	
 	if ( n == 0 ) {
 		return true;
 	}
@@ -60,7 +61,7 @@ Main
 int main( void ) {
 	int flowerbed [ 5 ] = { 1, 0, 0, 0, 1 };
 	int tam = 5;
-	int n = 1;
+	int n = 2;
 
 	if ( CanPlaceFlowers( flowerbed, tam, n ) ) {
 		printf( "TRUE\n" );

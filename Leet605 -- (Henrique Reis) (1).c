@@ -50,10 +50,10 @@ bool canPlaceFlowers(int* flowerbed, int flowerbedSize, int n) {
     }
     }//for
 
-  if( n = count){
+  if( n == count){
     return true;
   }
-  if(n = naoplanta){
+  if(n == naoplanta){
     return false;
   }
    free(alc);
