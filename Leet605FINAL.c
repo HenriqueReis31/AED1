@@ -61,7 +61,7 @@ Main
 int main( void ) {
 	int flowerbed [ 5 ] = { 1, 0, 0, 0, 1 };
 	int tam = 5;
-	int n = 2;
+	int n = 3;
 
 	if ( CanPlaceFlowers( flowerbed, tam, n ) ) {
 		printf( "TRUE\n" );
