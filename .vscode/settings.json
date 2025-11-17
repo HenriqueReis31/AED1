@@ -2,6 +2,7 @@
     "files.associations": {
         "stdlib.h": "c",
         "EXFILA.C": "cpp",
-        "stdio.h": "c"
+        "stdio.h": "c",
+        "TESTEE.C": "cpp"
     }
 }
