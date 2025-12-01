@@ -1,0 +1,33 @@
+Autor: Henrique dos Reis
+Turma: M2
+Disciplina: Algoritmos e Estrutura de Dados
+
+Leet 143  -> Reorder List pede para reorganizar uma lista simplesmente encadeada seguindo um padrão específico:
+
+Entrada:
+
+Uma lista ligada no formato:
+
+L0 → L1 → L2 → ... → Ln
+
+Saída desejada:
+
+A lista deve ser reorganizada para:
+
+L0 → Ln → L1 → Ln-1 → L2 → Ln-2 → ...
+
+Importante:
+
+Não é permitido criar uma nova lista.
+
+A reorganização deve ser feita in-place, alterando apenas ponteiros.
+
+A função obrigatoriamente deve modificar a lista original.
+
+
+ Exemplo prático
+Entrada:
+1 → 2 → 3 → 4 → 5
+
+Saída:
+1 → 5 → 2 → 4 → 3
