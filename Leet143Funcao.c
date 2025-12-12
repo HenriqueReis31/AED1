@@ -21,7 +21,7 @@ while (q->next != NULL && q->next->next != NULL) {  // enquanto p nao termina p 
         struct ListNode *temp = current->next; // guarda o prox
         current->next = r;                      
         r = current;                           
-        current = temp;
+        current = temp; 
     }       
     struct ListNode *Pri = head; 
     struct ListNode *Seg = r;    

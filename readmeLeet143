@@ -20,7 +20,7 @@ Importante:
 
 Não é permitido criar uma nova lista.
 
-A reorganização deve ser feita in-place, alterando apenas ponteiros.
+A reorganização deve ser alterando apenas ponteiros.
 
 A função obrigatoriamente deve modificar a lista original.
 
